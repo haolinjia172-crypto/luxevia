@@ -4,9 +4,335 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LUXEVIA — Curated Luxury Fashion</title>
-<meta name="description" content="Premium luxury fashion sourcing — bags, watches, jewelry, clothing, shoes and accessories from the world's finest brands.">
+<meta name="description" content="Premium luxury fashion sourcing — bags, watches, jewelry, clothing, shoes and accessories. Personal service, worldwide delivery.">
 <link rel="stylesheet" href="css/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+<style>
+/* ── PHILOSOPHY BANNER ── */
+.philosophy {
+  padding: 80px 48px;
+  background: linear-gradient(135deg, rgba(198,169,107,0.06) 0%, transparent 60%), var(--off-black);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.philosophy-tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 0.03em;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.philosophy-tagline em { font-style: italic; color: var(--gold); }
+.philosophy-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 640px;
+  margin: 0 auto 40px;
+  line-height: 1.8;
+}
+.philosophy-stats {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  max-width: 700px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+}
+.phil-stat {
+  flex: 1;
+  min-width: 160px;
+  padding: 24px 20px;
+  border-right: 1px solid var(--border);
+}
+.phil-stat:last-child { border-right: none; }
+.phil-stat-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.phil-stat-l {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── PROCESS SECTION ── */
+.process-section {
+  padding: 80px 48px;
+}
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  max-width: 1100px;
+  margin: 48px auto 0;
+  position: relative;
+}
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 28px; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), var(--gold), var(--border), transparent);
+  z-index: 0;
+}
+.process-step {
+  text-align: center;
+  padding: 0 12px;
+  position: relative;
+  z-index: 1;
+}
+.process-num {
+  width: 56px; height: 56px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  background: var(--black);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  font-weight: 400;
+}
+.process-icon { font-size: 1.3rem; margin-bottom: 12px; }
+.process-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  color: var(--cream);
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+.process-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── REVIEWS SECTION ── */
+.reviews-section {
+  padding: 80px 0;
+  overflow: hidden;
+  background: var(--off-black);
+  border-top: 1px solid var(--border-sub);
+}
+.reviews-track-wrap {
+  overflow: hidden;
+  margin-top: 48px;
+  position: relative;
+}
+.reviews-track-wrap::before,
+.reviews-track-wrap::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0; z-index: 2;
+  width: 80px;
+  pointer-events: none;
+}
+.reviews-track-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--off-black), transparent);
+}
+.reviews-track-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--off-black), transparent);
+}
+.reviews-track {
+  display: flex;
+  gap: 16px;
+  animation: slideReviews 40s linear infinite;
+  width: max-content;
+}
+.reviews-track:hover { animation-play-state: paused; }
+@keyframes slideReviews {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.review-card {
+  width: 220px;
+  height: 380px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--border-sub);
+}
+.review-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.review-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 50%);
+}
+
+/* ── FAQ SECTION ── */
+.faq-section {
+  padding: 80px 48px;
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  max-width: 1000px;
+  margin: 48px auto 0;
+  background: var(--border-sub);
+  border: 1px solid var(--border-sub);
+}
+.faq-item {
+  background: var(--black);
+  padding: 32px 28px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.faq-item:hover { background: var(--off-black); }
+.faq-q {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  color: var(--cream);
+  font-weight: 400;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  letter-spacing: 0.02em;
+}
+.faq-q::before {
+  content: 'Q';
+  font-size: 0.65rem;
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  background: var(--gold-dim);
+  padding: 3px 7px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.faq-a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.75;
+  padding-left: 32px;
+}
+
+/* ── PAYMENT METHODS ── */
+.payment-section {
+  padding: 48px;
+  border-top: 1px solid var(--border-sub);
+  text-align: center;
+  background: var(--off-black);
+}
+.payment-methods {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.payment-badge {
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--black);
+  transition: all 0.3s;
+}
+.payment-badge:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ── QC YOUTUBE ── */
+.qc-section {
+  padding: 80px 48px;
+  background: var(--black);
+  border-top: 1px solid var(--border-sub);
+}
+.qc-inner {
+  max-width: 900px;
+  margin: 48px auto 0;
+  text-align: center;
+}
+.qc-youtube-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 36px;
+  background: #FF0000;
+  color: white;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+  margin-top: 32px;
+}
+.qc-youtube-btn:hover { background: #cc0000; transform: translateY(-2px); }
+.qc-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+.qc-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 40px;
+  background: var(--border-sub);
+  border: 1px solid var(--border-sub);
+}
+.qc-feature {
+  background: var(--off-black);
+  padding: 28px 20px;
+  text-align: center;
+}
+.qc-feature-icon { font-size: 1.6rem; margin-bottom: 12px; }
+.qc-feature-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.qc-feature-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .process-steps { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .process-steps::before { display: none; }
+  .faq-grid { grid-template-columns: 1fr; }
+  .qc-features { grid-template-columns: 1fr; }
+  .philosophy-stats { flex-direction: column; }
+  .phil-stat { border-right: none; border-bottom: 1px solid var(--border); }
+  .phil-stat:last-child { border-bottom: none; }
+}
+@media (max-width: 600px) {
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .philosophy, .process-section, .faq-section, .qc-section, .payment-section { padding: 60px 20px; }
+}
+</style>
 </head>
 <body>
 
@@ -15,21 +341,17 @@
   <a href="index.html" class="nav-logo">Luxe<span>via</span></a>
   <ul class="nav-links">
     <li><a href="#catalog">Collections</a></li>
-    <li><a href="pages/bags.html">Bags</a></li>
-    <li><a href="pages/watches.html">Watches</a></li>
-    <li><a href="pages/jewelry.html">Jewelry</a></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="#process">How It Works</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#qc">QC Videos</a></li>
   </ul>
-  <a href="https://wa.me/8615204002312" target="_blank" class="nav-wa" aria-label="WhatsApp">
+  <a href="https://wa.me/8615204002312" target="_blank" class="nav-wa">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.532 5.856L.057 23.882a.5.5 0 00.611.61l6.054-1.47A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.938a9.9 9.9 0 01-5.031-1.37l-.361-.214-3.741.908.937-3.639-.235-.374A9.895 9.895 0 012.062 12C2.062 6.533 6.533 2.062 12 2.062S21.938 6.533 21.938 12 17.467 21.938 12 21.938z"/></svg>
     &nbsp;WhatsApp Us
   </a>
-  <button class="nav-burger" id="nav-burger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-burger" id="nav-burger"><span></span><span></span><span></span></button>
 </nav>
-
-<!-- Mobile nav -->
 <div id="mobile-nav">
   <a href="#catalog">Collections</a>
   <a href="pages/bags.html">Bags</a>
@@ -39,6 +361,8 @@
   <a href="pages/jewelry.html">Jewelry</a>
   <a href="pages/accessories.html">Accessories</a>
   <a href="pages/wallets.html">Wallets</a>
+  <a href="#faq">FAQ</a>
+  <a href="#qc">QC Videos</a>
   <a href="https://wa.me/8615204002312" target="_blank" style="color:var(--whatsapp)">💬 WhatsApp Us</a>
 </div>
 
@@ -48,9 +372,9 @@
   <div class="hero-grid"></div>
   <div class="hero-inner">
     <div class="hero-text">
-      <p class="hero-eyebrow">Global Luxury Sourcing</p>
+      <p class="hero-eyebrow">Global Luxury Sourcing · Est. Lilia Luxury</p>
       <h1 class="hero-h1">The World's Finest<br><em>Brands, Curated</em><br>For You</h1>
-      <p class="hero-desc">Premium fashion sourcing across bags, watches, jewelry, clothing and accessories. Every piece authenticated, every order personal.</p>
+      <p class="hero-desc">Premium fashion sourcing across bags, watches, jewelry, clothing and accessories. Every piece inspected on video. Every client served personally.</p>
       <div class="hero-ctas">
         <a href="#catalog" class="btn btn-gold">Browse Collections</a>
         <a href="https://wa.me/8615204002312" target="_blank" class="btn btn-outline">
@@ -61,18 +385,9 @@
     </div>
     <div class="hero-visual">
       <div class="hero-panels">
-        <a href="pages/bags.html" class="h-panel">
-          <div class="h-panel-inner">👜</div>
-          <div class="h-panel-label">Bags &amp; <span>Handbags</span></div>
-        </a>
-        <a href="pages/watches.html" class="h-panel">
-          <div class="h-panel-inner">⌚</div>
-          <div class="h-panel-label"><span>Watches</span></div>
-        </a>
-        <a href="pages/jewelry.html" class="h-panel">
-          <div class="h-panel-inner">💎</div>
-          <div class="h-panel-label"><span>Jewelry</span></div>
-        </a>
+        <a href="pages/bags.html" class="h-panel"><div class="h-panel-inner">👜</div><div class="h-panel-label">Bags &amp; <span>Handbags</span></div></a>
+        <a href="pages/watches.html" class="h-panel"><div class="h-panel-inner">⌚</div><div class="h-panel-label"><span>Watches</span></div></a>
+        <a href="pages/jewelry.html" class="h-panel"><div class="h-panel-inner">💎</div><div class="h-panel-label"><span>Jewelry</span></div></a>
       </div>
     </div>
   </div>
@@ -88,30 +403,45 @@
     <span class="marquee-item">Women's Fashion<span class="marquee-gem"></span></span>
     <span class="marquee-item">Men's Clothing<span class="marquee-gem"></span></span>
     <span class="marquee-item">Premium Shoes<span class="marquee-gem"></span></span>
-    <span class="marquee-item">Silk Scarves<span class="marquee-gem"></span></span>
-    <span class="marquee-item">Sunglasses<span class="marquee-gem"></span></span>
-    <span class="marquee-item">Leather Belts<span class="marquee-gem"></span></span>
-    <span class="marquee-item">Fine Wallets<span class="marquee-gem"></span></span>
+    <span class="marquee-item">75% Repeat Clients<span class="marquee-gem"></span></span>
+    <span class="marquee-item">Video QC Every Order<span class="marquee-gem"></span></span>
+    <span class="marquee-item">Worldwide Delivery<span class="marquee-gem"></span></span>
     <span class="marquee-item">Luxury Bags<span class="marquee-gem"></span></span>
     <span class="marquee-item">Designer Watches<span class="marquee-gem"></span></span>
     <span class="marquee-item">Fine Jewelry<span class="marquee-gem"></span></span>
     <span class="marquee-item">Women's Fashion<span class="marquee-gem"></span></span>
     <span class="marquee-item">Men's Clothing<span class="marquee-gem"></span></span>
     <span class="marquee-item">Premium Shoes<span class="marquee-gem"></span></span>
-    <span class="marquee-item">Silk Scarves<span class="marquee-gem"></span></span>
-    <span class="marquee-item">Sunglasses<span class="marquee-gem"></span></span>
-    <span class="marquee-item">Leather Belts<span class="marquee-gem"></span></span>
-    <span class="marquee-item">Fine Wallets<span class="marquee-gem"></span></span>
+    <span class="marquee-item">75% Repeat Clients<span class="marquee-gem"></span></span>
+    <span class="marquee-item">Video QC Every Order<span class="marquee-gem"></span></span>
+    <span class="marquee-item">Worldwide Delivery<span class="marquee-gem"></span></span>
   </div>
 </div>
 
-<!-- ══ STATS ══ -->
-<div class="stats-bar reveal">
-  <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Luxury Brands</div></div>
-  <div class="stat"><div class="stat-n">10K+</div><div class="stat-l">Products Available</div></div>
-  <div class="stat"><div class="stat-n">50+</div><div class="stat-l">Countries Served</div></div>
-  <div class="stat"><div class="stat-n">7×24</div><div class="stat-l">Personal Service</div></div>
-</div>
+<!-- ══ PHILOSOPHY ══ -->
+<section class="philosophy reveal">
+  <p class="u-eyebrow" style="margin-bottom:16px;">Our Philosophy</p>
+  <h2 class="philosophy-tagline">We Build <em>Relationships,</em><br>Not Just Transactions</h2>
+  <p class="philosophy-sub">We are committed to premium quality, long-term trust, and personal service on every single order. We don't do one-time deals — we grow with our clients.</p>
+  <div class="philosophy-stats">
+    <div class="phil-stat">
+      <div class="phil-stat-n">75%+</div>
+      <div class="phil-stat-l">Repeat Client Rate</div>
+    </div>
+    <div class="phil-stat">
+      <div class="phil-stat-n">500+</div>
+      <div class="phil-stat-l">Luxury Brands</div>
+    </div>
+    <div class="phil-stat">
+      <div class="phil-stat-n">50+</div>
+      <div class="phil-stat-l">Countries Served</div>
+    </div>
+    <div class="phil-stat">
+      <div class="phil-stat-n">100%</div>
+      <div class="phil-stat-l">Video QC Every Order</div>
+    </div>
+  </div>
+</section>
 
 <!-- ══ CATALOG ══ -->
 <section id="catalog">
@@ -120,304 +450,211 @@
     <h2 class="sec-h2">Shop by Category</h2>
     <p class="sec-sub">From iconic handbags to statement jewelry — explore our full range of curated luxury goods, updated regularly with the latest arrivals.</p>
   </div>
-
   <div class="cat-grid">
-
-    <!-- Bags — featured 2×2 -->
-    <a href="pages/bags.html" class="cat-card cat-card--featured reveal">
-      <div class="cat-bg cat-bg-bags"></div>
-      <div class="cat-emoji">👜</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Featured</span>
-        <span class="cat-name">Bags &amp; Handbags</span>
-        <span class="cat-count">Totes · Shoulder Bags · Clutches · Backpacks</span>
-        <span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Women Clothes -->
-    <a href="pages/clothes.html#women" class="cat-card reveal">
-      <div class="cat-bg cat-bg-wclothes"></div>
-      <div class="cat-emoji">👗</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Women</span>
-        <span class="cat-name">Women's Clothing</span>
-        <span class="cat-count">Dresses · Tops · Outerwear</span>
-        <span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Men Clothes -->
-    <a href="pages/clothes.html#men" class="cat-card reveal">
-      <div class="cat-bg cat-bg-mclothes"></div>
-      <div class="cat-emoji">🧥</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Men</span>
-        <span class="cat-name">Men's Clothing</span>
-        <span class="cat-count">Shirts · Suits · Streetwear</span>
-        <span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Watches -->
-    <a href="pages/watches.html" class="cat-card reveal">
-      <div class="cat-bg cat-bg-watches"></div>
-      <div class="cat-emoji">⌚</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Timepieces</span>
-        <span class="cat-name">Watches</span>
-        <span class="cat-count">Rolex · Patek · AP · Cartier</span>
-        <span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Jewelry -->
-    <a href="pages/jewelry.html" class="cat-card reveal">
-      <div class="cat-bg cat-bg-jewelry"></div>
-      <div class="cat-emoji">💎</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Fine Jewelry</span>
-        <span class="cat-name">Jewelry</span>
-        <span class="cat-count">Rings · Necklaces · Bracelets</span>
-        <span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Women Shoes -->
-    <a href="pages/shoes.html#women" class="cat-card reveal">
-      <div class="cat-bg cat-bg-wshoes"></div>
-      <div class="cat-emoji">👠</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Women</span>
-        <span class="cat-name">Women's Shoes</span>
-        <span class="cat-count">Heels · Sneakers · Boots · Flats</span>
-        <span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Men Shoes -->
-    <a href="pages/shoes.html#men" class="cat-card reveal">
-      <div class="cat-bg cat-bg-mshoes"></div>
-      <div class="cat-emoji">👞</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Men</span>
-        <span class="cat-name">Men's Shoes</span>
-        <span class="cat-count">Sneakers · Loafers · Dress Shoes</span>
-        <span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Sunglasses — wide -->
-    <a href="pages/accessories.html#sunglasses" class="cat-card cat-card--wide reveal">
-      <div class="cat-bg cat-bg-sunglass"></div>
-      <div class="cat-emoji">🕶️</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Eyewear</span>
-        <span class="cat-name">Sunglasses</span>
-        <span class="cat-count">Aviators · Oversized · Sport · Classic</span>
-        <span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Belts -->
-    <a href="pages/accessories.html#belts" class="cat-card reveal">
-      <div class="cat-bg cat-bg-belts"></div>
-      <div class="cat-emoji">🎗️</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Accessories</span>
-        <span class="cat-name">Belts</span>
-        <span class="cat-count">Leather · Canvas · Monogram</span>
-        <span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Scarves -->
-    <a href="pages/accessories.html#scarves" class="cat-card reveal">
-      <div class="cat-bg cat-bg-scarves"></div>
-      <div class="cat-emoji">🧣</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Accessories</span>
-        <span class="cat-name">Scarves</span>
-        <span class="cat-count">Silk · Cashmere · Printed</span>
-        <span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Hats -->
-    <a href="pages/accessories.html#hats" class="cat-card reveal">
-      <div class="cat-bg cat-bg-hats"></div>
-      <div class="cat-emoji">🎩</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Accessories</span>
-        <span class="cat-name">Hats &amp; Caps</span>
-        <span class="cat-count">Baseball · Bucket · Wide-Brim</span>
-        <span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Swimsuit -->
-    <a href="pages/accessories.html#swimwear" class="cat-card reveal">
-      <div class="cat-bg cat-bg-swim"></div>
-      <div class="cat-emoji">👙</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Summer</span>
-        <span class="cat-name">Swimwear</span>
-        <span class="cat-count">One-piece · Bikini · Cover-up</span>
-        <span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Women Wallets -->
-    <a href="pages/wallets.html#women" class="cat-card reveal">
-      <div class="cat-bg cat-bg-wwallets"></div>
-      <div class="cat-emoji">👛</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Women</span>
-        <span class="cat-name">Women's Wallets</span>
-        <span class="cat-count">Card Holders · Zip · Long</span>
-        <span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Men Wallets -->
-    <a href="pages/wallets.html#men" class="cat-card reveal">
-      <div class="cat-bg cat-bg-mwallets"></div>
-      <div class="cat-emoji">💼</div>
-      <div class="cat-overlay"></div>
-      <div class="cat-sheen"></div>
-      <div class="cat-frame"></div>
-      <div class="cat-vline"></div>
-      <div class="cat-info">
-        <span class="cat-info-tag">Men</span>
-        <span class="cat-name">Men's Wallets</span>
-        <span class="cat-count">Bifold · Slim · Card Wallet</span>
-        <span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
+    <a href="pages/bags.html" class="cat-card cat-card--featured reveal"><div class="cat-bg cat-bg-bags"></div><div class="cat-emoji">👜</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Featured</span><span class="cat-name">Bags &amp; Handbags</span><span class="cat-count">LV · Chanel · Hermès · Gucci · Dior · Fendi · and more</span><span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/clothes.html#women" class="cat-card reveal"><div class="cat-bg cat-bg-wclothes"></div><div class="cat-emoji">👗</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Women</span><span class="cat-name">Women's Clothing</span><span class="cat-count">Dresses · Tops · Outerwear</span><span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/clothes.html#men" class="cat-card reveal"><div class="cat-bg cat-bg-mclothes"></div><div class="cat-emoji">🧥</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Men</span><span class="cat-name">Men's Clothing</span><span class="cat-count">Shirts · Suits · Streetwear</span><span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/watches.html" class="cat-card reveal"><div class="cat-bg cat-bg-watches"></div><div class="cat-emoji">⌚</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Timepieces</span><span class="cat-name">Watches</span><span class="cat-count">Rolex · Patek · AP · Cartier</span><span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/jewelry.html" class="cat-card reveal"><div class="cat-bg cat-bg-jewelry"></div><div class="cat-emoji">💎</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Fine Jewelry</span><span class="cat-name">Jewelry</span><span class="cat-count">Rings · Necklaces · Bracelets</span><span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/shoes.html#women" class="cat-card reveal"><div class="cat-bg cat-bg-wshoes"></div><div class="cat-emoji">👠</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Women</span><span class="cat-name">Women's Shoes</span><span class="cat-count">Heels · Sneakers · Boots</span><span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/shoes.html#men" class="cat-card reveal"><div class="cat-bg cat-bg-mshoes"></div><div class="cat-emoji">👞</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Men</span><span class="cat-name">Men's Shoes</span><span class="cat-count">Sneakers · Loafers · Dress</span><span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/accessories.html#sunglasses" class="cat-card cat-card--wide reveal"><div class="cat-bg cat-bg-sunglass"></div><div class="cat-emoji">🕶️</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Eyewear</span><span class="cat-name">Sunglasses</span><span class="cat-count">Aviators · Oversized · Sport · Classic</span><span class="cat-cta">View Collection <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/accessories.html#belts" class="cat-card reveal"><div class="cat-bg cat-bg-belts"></div><div class="cat-emoji">🎗️</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Accessories</span><span class="cat-name">Belts</span><span class="cat-count">Leather · Canvas · Monogram</span><span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/accessories.html#scarves" class="cat-card reveal"><div class="cat-bg cat-bg-scarves"></div><div class="cat-emoji">🧣</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Accessories</span><span class="cat-name">Scarves</span><span class="cat-count">Silk · Cashmere · Printed</span><span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/accessories.html#hats" class="cat-card reveal"><div class="cat-bg cat-bg-hats"></div><div class="cat-emoji">🎩</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Accessories</span><span class="cat-name">Hats &amp; Caps</span><span class="cat-count">Baseball · Bucket · Wide-Brim</span><span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/accessories.html#swimwear" class="cat-card reveal"><div class="cat-bg cat-bg-swim"></div><div class="cat-emoji">👙</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Summer</span><span class="cat-name">Swimwear</span><span class="cat-count">One-piece · Bikini · Cover-up</span><span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/wallets.html#women" class="cat-card reveal"><div class="cat-bg cat-bg-wwallets"></div><div class="cat-emoji">👛</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Women</span><span class="cat-name">Women's Wallets</span><span class="cat-count">Card Holders · Zip · Long</span><span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
+    <a href="pages/wallets.html#men" class="cat-card reveal"><div class="cat-bg cat-bg-mwallets"></div><div class="cat-emoji">💼</div><div class="cat-overlay"></div><div class="cat-sheen"></div><div class="cat-frame"></div><div class="cat-vline"></div><div class="cat-info"><span class="cat-info-tag">Men</span><span class="cat-name">Men's Wallets</span><span class="cat-count">Bifold · Slim · Card Wallet</span><span class="cat-cta">View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
   </div>
 </section>
 
-<!-- ══ TRUST ══ -->
-<section class="trust-section" id="about">
-  <div class="container">
-    <div class="sec-header reveal" style="padding-left:0;padding-right:0">
-      <div class="gold-rule u-eyebrow" style="justify-content:center">Why Luxevia</div>
-      <h2 class="sec-h2">Trusted by Clients Worldwide</h2>
-      <p class="sec-sub">We take the complexity out of luxury sourcing — so you get exactly what you want, without the hassle.</p>
+<!-- ══ PROCESS ══ -->
+<section class="process-section" id="process">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="sec-header reveal" style="padding:0 0 0 0;">
+      <div class="gold-rule u-eyebrow" style="justify-content:center">How Every Order Works</div>
+      <h2 class="sec-h2">Our 5-Step Promise</h2>
+      <p class="sec-sub">Every order follows the same careful process — no shortcuts, no surprises. Just consistent quality and full transparency.</p>
     </div>
-    <div class="trust-grid reveal">
-      <div class="trust-item">
-        <div class="trust-icon">✦</div>
-        <div class="trust-title">Authentic Selection</div>
-        <div class="trust-desc">Every item is carefully sourced and verified. We work with trusted suppliers to bring you genuine luxury goods.</div>
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="process-num">1</div>
+        <div class="process-icon">💳</div>
+        <div class="process-title">Payment Received</div>
+        <div class="process-desc">We confirm your payment via PayPal, Zelle, Wise, Western Union or other methods.</div>
       </div>
-      <div class="trust-item">
-        <div class="trust-icon">🌍</div>
-        <div class="trust-title">Worldwide Shipping</div>
-        <div class="trust-desc">We deliver to Europe, Middle East, North America and beyond. Fast, discreet, fully tracked.</div>
+      <div class="process-step">
+        <div class="process-num">2</div>
+        <div class="process-icon">🔍</div>
+        <div class="process-title">Sourcing</div>
+        <div class="process-desc">We source your exact item — correct model, size, colour and specifications.</div>
       </div>
-      <div class="trust-item">
-        <div class="trust-icon">💬</div>
-        <div class="trust-title">Personal Service</div>
-        <div class="trust-desc">Direct WhatsApp communication. No bots, no delays — your dedicated agent handles everything end-to-end.</div>
+      <div class="process-step">
+        <div class="process-num">3</div>
+        <div class="process-icon">✅</div>
+        <div class="process-title">Quality Check</div>
+        <div class="process-desc">Every item is thoroughly inspected for quality before it reaches you.</div>
       </div>
-      <div class="trust-item">
-        <div class="trust-icon">🔄</div>
-        <div class="trust-title">Always Up-to-Date</div>
-        <div class="trust-desc">New arrivals added regularly. Ask us about specific items, new seasons or sold-out pieces.</div>
+      <div class="process-step">
+        <div class="process-num">4</div>
+        <div class="process-icon">📹</div>
+        <div class="process-title">Video Confirmation</div>
+        <div class="process-desc">We video call you to show the item live — you approve before it ships.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">5</div>
+        <div class="process-icon">📦</div>
+        <div class="process-title">Packed &amp; Shipped</div>
+        <div class="process-desc">Discreetly packaged and shipped worldwide. Full tracking provided.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ HOW IT WORKS ══ -->
-<section class="how-section">
-  <div class="container">
-    <div class="sec-header reveal" style="padding-left:0;padding-right:0">
-      <div class="gold-rule u-eyebrow" style="justify-content:center">How It Works</div>
-      <h2 class="sec-h2">Simple. Personal. Fast.</h2>
+<!-- ══ QC SECTION ══ -->
+<section class="qc-section" id="qc">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="sec-header reveal" style="padding:0;">
+      <div class="gold-rule u-eyebrow" style="justify-content:center">Quality Control</div>
+      <h2 class="sec-h2">See Before You Buy</h2>
+      <p class="sec-sub">We record QC videos for every single order. Browse our YouTube channel to see real product quality — no filters, no tricks.</p>
     </div>
-    <div class="how-steps reveal">
-      <div class="how-step">
-        <div class="how-num">1</div>
-        <div class="how-icon">🔍</div>
-        <div class="how-title">Browse</div>
-        <div class="how-desc">Explore our categories. Click through to see the full selection on each product page.</div>
+    <div class="qc-inner reveal">
+      <div class="qc-features">
+        <div class="qc-feature">
+          <div class="qc-feature-icon">🎥</div>
+          <div class="qc-feature-title">Real Video, Every Time</div>
+          <div class="qc-feature-desc">We never send generic stock footage. Every video shows your actual item before shipment.</div>
+        </div>
+        <div class="qc-feature">
+          <div class="qc-feature-icon">📞</div>
+          <div class="qc-feature-title">Live Video Call</div>
+          <div class="qc-feature-desc">We offer live video confirmation so you can inspect the item yourself in real time.</div>
+        </div>
+        <div class="qc-feature">
+          <div class="qc-feature-icon">✓</div>
+          <div class="qc-feature-title">You Approve First</div>
+          <div class="qc-feature-desc">Nothing ships until you're satisfied. Your approval is required before we pack and send.</div>
+        </div>
       </div>
-      <div class="how-step">
-        <div class="how-num">2</div>
-        <div class="how-icon">💬</div>
-        <div class="how-title">Enquire</div>
-        <div class="how-desc">Found something? Send us the item via WhatsApp. We confirm availability and pricing instantly.</div>
+      <a href="https://www.youtube.com/@luxurylilia" target="_blank" class="qc-youtube-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        Watch Our QC Videos on YouTube
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REVIEWS ══ -->
+<section class="reviews-section" id="reviews">
+  <div style="max-width:1100px;margin:0 auto;padding:0 48px;">
+    <div class="sec-header reveal" style="padding:0;">
+      <div class="gold-rule u-eyebrow" style="justify-content:center">Client Feedback</div>
+      <h2 class="sec-h2">Real Clients, Real Results</h2>
+      <p class="sec-sub">Don't take our word for it. Here's what our clients from around the world say after receiving their orders.</p>
+    </div>
+  </div>
+  <div class="reviews-track-wrap">
+    <div class="reviews-track">
+      <div class="review-card"><img src="images/reviews/r1.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r2.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r3.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r4.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r5.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r6.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r7.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r8.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r10.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r11.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r12.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r13.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r14.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r15.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r16.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r17.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r18.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r19.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r20.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="review-card"><img src="images/reviews/r1.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r2.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r3.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r4.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r5.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r6.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r7.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r8.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r10.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r11.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r12.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r13.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r14.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r15.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r16.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r17.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r18.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r19.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+      <div class="review-card"><img src="images/reviews/r20.jpg" alt="Client review"><div class="review-card-overlay"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="faq-section" id="faq">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="sec-header reveal" style="padding:0;">
+      <div class="gold-rule u-eyebrow" style="justify-content:center">FAQ</div>
+      <h2 class="sec-h2">Frequently Asked Questions</h2>
+      <p class="sec-sub">Everything you need to know before placing your first order.</p>
+    </div>
+    <div class="faq-grid reveal">
+      <div class="faq-item">
+        <div class="faq-q">How do I place an order?</div>
+        <div class="faq-a">Browse our collections, find what you like, and send us a WhatsApp message with the item details or a screenshot. We'll confirm availability, size options and pricing within hours.</div>
       </div>
-      <div class="how-step">
-        <div class="how-num">3</div>
-        <div class="how-icon">💳</div>
-        <div class="how-title">Confirm &amp; Pay</div>
-        <div class="how-desc">We guide you through payment. Secure, simple, with full confirmation sent to you.</div>
+      <div class="faq-item">
+        <div class="faq-q">What payment methods do you accept?</div>
+        <div class="faq-a">We accept PayPal, Zelle, Wise, Western Union, and other methods. Ask us and we'll find the most convenient option for your country.</div>
       </div>
-      <div class="how-step">
-        <div class="how-num">4</div>
-        <div class="how-icon">📦</div>
-        <div class="how-title">Receive</div>
-        <div class="how-desc">Your order is packed discreetly and shipped worldwide. Tracking provided every step.</div>
+      <div class="faq-item">
+        <div class="faq-q">How long does shipping take?</div>
+        <div class="faq-a">Delivery typically takes 10–30 days depending on your country and shipping method. We provide full tracking once your order is dispatched.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you ship worldwide?</div>
+        <div class="faq-a">Yes, we ship to over 50 countries including the USA, UK, Europe, Middle East, Australia and more. Contact us if you're unsure about your location.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do I know the quality is good?</div>
+        <div class="faq-a">Every order includes a QC video inspection. We can also arrange a live video call so you can see the item yourself before it ships. You approve — then we send.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I see more products not shown on the website?</div>
+        <div class="faq-a">Absolutely. Our full catalogue is much larger than what's shown here. Message us with any brand, model or style and we'll check availability for you.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if I'm not happy with my order?</div>
+        <div class="faq-a">Your satisfaction is our priority. We handle every issue personally and work to find the best solution. We build long-term relationships — not one-time transactions.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do I contact you?</div>
+        <div class="faq-a">WhatsApp is the fastest way to reach us: +86 152 0400 2312. We're available 7 days a week and respond quickly to all enquiries.</div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ══ PAYMENT ══ -->
+<div class="payment-section reveal">
+  <p class="u-eyebrow" style="margin-bottom:20px;">Accepted Payment Methods</p>
+  <div class="payment-methods">
+    <div class="payment-badge">PayPal</div>
+    <div class="payment-badge">Zelle</div>
+    <div class="payment-badge">Wise</div>
+    <div class="payment-badge">Western Union</div>
+    <div class="payment-badge">& More</div>
+  </div>
+</div>
 
 <!-- ══ CTA BANNER ══ -->
 <section class="cta-banner">
@@ -441,7 +678,7 @@
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="footer-logo-f">Luxe<span>via</span></div>
-      <p class="footer-tagline">Your trusted partner in global luxury fashion sourcing. Personal service, premium selection, worldwide delivery.</p>
+      <p class="footer-tagline">Your trusted partner in global luxury fashion sourcing. Personal service, premium selection, worldwide delivery. 75% of our clients come back — and we're proud of that.</p>
       <a href="https://wa.me/8615204002312" target="_blank" class="btn btn-outline" style="font-size:0.65rem;padding:10px 22px">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.532 5.856L.057 23.882a.5.5 0 00.611.61l6.054-1.47A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.938a9.9 9.9 0 01-5.031-1.37l-.361-.214-3.741.908.937-3.639-.235-.374A9.895 9.895 0 012.062 12C2.062 6.533 6.533 2.062 12 2.062S21.938 6.533 21.938 12 17.467 21.938 12 21.938z"/></svg>
         +86 152 0400 2312
@@ -455,15 +692,17 @@
         <li><a href="pages/shoes.html">Shoes</a></li>
         <li><a href="pages/watches.html">Watches</a></li>
         <li><a href="pages/jewelry.html">Jewelry</a></li>
+        <li><a href="pages/accessories.html">Accessories</a></li>
+        <li><a href="pages/wallets.html">Wallets</a></li>
       </ul>
     </div>
     <div>
-      <div class="footer-col-title">More</div>
+      <div class="footer-col-title">Information</div>
       <ul class="footer-links-list">
-        <li><a href="pages/accessories.html">Accessories</a></li>
-        <li><a href="pages/wallets.html">Wallets</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#how">How It Works</a></li>
+        <li><a href="#process">How It Works</a></li>
+        <li><a href="#qc">QC Videos</a></li>
+        <li><a href="#reviews">Client Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
     </div>
     <div>
@@ -471,20 +710,19 @@
       <ul class="footer-links-list">
         <li><a href="https://wa.me/8615204002312" target="_blank">WhatsApp</a></li>
         <li><a href="https://wa.me/8615204002312" target="_blank">+86 152 0400 2312</a></li>
+        <li><a href="https://www.youtube.com/@luxurylilia" target="_blank">YouTube QC Channel</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2025 Luxevia. All rights reserved.</span>
+    <span class="footer-copy">© 2025 Luxevia · Lilia Luxury. All rights reserved.</span>
     <span class="footer-copy">Luxury Fashion Sourcing · Worldwide Delivery</span>
   </div>
 </footer>
 
 <!-- WhatsApp float -->
 <a href="https://wa.me/8615204002312" target="_blank" id="wa-float" aria-label="Chat on WhatsApp">
-  <span class="wa-icon">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.532 5.856L.057 23.882a.5.5 0 00.611.61l6.054-1.47A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.938a9.9 9.9 0 01-5.031-1.37l-.361-.214-3.741.908.937-3.639-.235-.374A9.895 9.895 0 012.062 12C2.062 6.533 6.533 2.062 12 2.062S21.938 6.533 21.938 12 17.467 21.938 12 21.938z"/></svg>
-  </span>
+  <span class="wa-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.532 5.856L.057 23.882a.5.5 0 00.611.61l6.054-1.47A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.938a9.9 9.9 0 01-5.031-1.37l-.361-.214-3.741.908.937-3.639-.235-.374A9.895 9.895 0 012.062 12C2.062 6.533 6.533 2.062 12 2.062S21.938 6.533 21.938 12 17.467 21.938 12 21.938z"/></svg></span>
   <span class="wa-label">Chat with Us</span>
 </a>
 

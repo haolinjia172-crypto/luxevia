@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watches — LUXEVIA</title>
+<meta name="description" content="Luxury watches — Patek Philippe, Audemars Piguet, Richard Mille, Rolex, Cartier, Omega and more.">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.brand-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-bottom:60px; }
+.brand-card { position:relative; overflow:hidden; background:var(--panel); aspect-ratio:3/4; display:block; text-decoration:none; cursor:pointer; }
+.brand-card--wide { grid-column:span 2; aspect-ratio:16/7; }
+.brand-card-bg { position:absolute; inset:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+.brand-card:hover .brand-card-bg { transform:scale(1.05); }
+.bg-patek     { background:radial-gradient(ellipse at 60% 40%,#181410 0%,#080604 100%); }
+.bg-ap        { background:radial-gradient(ellipse at 40% 60%,#101418 0%,#060810 100%); }
+.bg-rm        { background:radial-gradient(ellipse at 50% 40%,#0c1008 0%,#060804 100%); }
+.bg-rolex     { background:radial-gradient(ellipse at 60% 50%,#0a1008 0%,#060804 100%); }
+.bg-vc        { background:radial-gradient(ellipse at 40% 40%,#14100c 0%,#0c0806 100%); }
+.bg-jlc       { background:radial-gradient(ellipse at 50% 60%,#100e14 0%,#08060c 100%); }
+.bg-iwc       { background:radial-gradient(ellipse at 60% 40%,#0c0e14 0%,#060810 100%); }
+.bg-panerai   { background:radial-gradient(ellipse at 40% 50%,#100c0c 0%,#080606 100%); }
+.bg-cartier   { background:radial-gradient(ellipse at 50% 40%,#140e08 0%,#0c0804 100%); }
+.bg-breguet   { background:radial-gradient(ellipse at 60% 60%,#121010 0%,#0a0808 100%); }
+.bg-omega     { background:radial-gradient(ellipse at 40% 40%,#0c1014 0%,#060810 100%); }
+.bg-breitling { background:radial-gradient(ellipse at 50% 50%,#100e08 0%,#0c0c04 100%); }
+.bg-longines  { background:radial-gradient(ellipse at 60% 40%,#0e0c10 0%,#08060c 100%); }
+.brand-card-emoji { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:clamp(3rem,6vw,5.5rem); opacity:0.08; transition:opacity 0.5s; pointer-events:none; }
+.brand-card:hover .brand-card-emoji { opacity:0.15; }
+.brand-card-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(8,8,8,0.95) 0%,rgba(8,8,8,0.25) 50%,transparent 100%); z-index:1; }
+.brand-card-sheen { position:absolute; inset:0; z-index:1; background:linear-gradient(135deg,rgba(198,169,107,0.11) 0%,transparent 55%); opacity:0; transition:opacity 0.5s; }
+.brand-card:hover .brand-card-sheen { opacity:1; }
+.brand-card-frame { position:absolute; inset:0; z-index:3; border:1px solid transparent; transition:border-color 0.4s; pointer-events:none; }
+.brand-card:hover .brand-card-frame { border-color:rgba(198,169,107,0.5); }
+.brand-card-vline { position:absolute; top:20px; left:20px; width:1px; height:36px; background:linear-gradient(to bottom,var(--gold),transparent); z-index:2; opacity:0; transition:opacity 0.4s; }
+.brand-card:hover .brand-card-vline { opacity:1; }
+.brand-card-info { position:absolute; bottom:0; left:0; right:0; z-index:2; padding:20px 22px 18px; }
+.brand-card-tag { display:block; font-size:0.58rem; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:5px; opacity:0; transform:translateY(6px); transition:all 0.35s 0.05s; }
+.brand-card:hover .brand-card-tag { opacity:1; transform:translateY(0); }
+.brand-card-name { display:block; font-family:'Playfair Display',serif; font-size:clamp(1rem,1.8vw,1.45rem); font-weight:400; color:var(--cream); letter-spacing:0.04em; margin-bottom:3px; text-shadow:0 1px 4px rgba(0,0,0,0.5); }
+.brand-card-sub { display:block; font-size:0.62rem; font-weight:400; letter-spacing:0.1em; color:rgba(240,235,225,0.6); margin-bottom:6px; transition:color 0.3s; line-height:1.4; }
+.brand-card:hover .brand-card-sub { color:var(--gold-light); }
+.brand-card-price { display:block; font-family:'Cormorant Garamond',serif; font-size:0.78rem; color:var(--gold); opacity:0.8; margin-bottom:10px; font-style:italic; }
+.brand-card-cta { display:inline-flex; align-items:center; gap:5px; font-size:0.6rem; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); opacity:0; transform:translateY(4px); transition:all 0.35s 0.08s; }
+.brand-card:hover .brand-card-cta { opacity:1; transform:translateY(0); }
+.tier-label { display:flex; align-items:center; gap:16px; margin-bottom:20px; margin-top:8px; }
+.tier-label-text { font-size:0.65rem; font-weight:500; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); white-space:nowrap; }
+.tier-label-line { flex:1; height:1px; background:var(--border-sub); }
+.tip-bar { display:flex; align-items:center; gap:14px; padding:14px 20px; background:rgba(198,169,107,0.05); border:1px solid var(--border); margin-bottom:36px; flex-wrap:wrap; }
+.tip-bar p { font-family:'Cormorant Garamond',serif; font-size:0.95rem; color:var(--muted); line-height:1.5; flex:1; }
+.tip-bar strong { color:var(--gold); font-weight:400; }
+@media(max-width:1024px){.brand-grid{grid-template-columns:repeat(3,1fr);}.brand-card--wide{grid-column:span 2;}}
+@media(max-width:640px){.brand-grid{grid-template-columns:repeat(2,1fr);gap:2px;}.brand-card--wide{grid-column:span 2;aspect-ratio:16/8;}}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="../index.html" class="nav-logo">Luxe<span>via</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html#catalog">Collections</a></li>
+    <li><a href="bags.html">Bags</a></li>
+    <li><a href="clothes.html">Clothing</a></li>
+    <li><a href="shoes.html">Shoes</a></li>
+    <li><a href="watches.html" class="active">Watches</a></li>
+    <li><a href="jewelry.html">Jewelry</a></li>
+    <li><a href="accessories.html">Accessories</a></li>
+  </ul>
+  <a href="https://wa.me/8615204002312" target="_blank" class="nav-wa">💬 WhatsApp</a>
+  <button class="nav-burger" id="nav-burger"><span></span><span></span><span></span></button>
+</nav>
+<div id="mobile-nav">
+  <a href="../index.html">← Home</a>
+  <a href="bags.html">Bags</a><a href="clothes.html">Clothing</a><a href="shoes.html">Shoes</a>
+  <a href="watches.html">Watches</a><a href="jewelry.html">Jewelry</a>
+  <a href="accessories.html">Accessories</a><a href="wallets.html">Wallets</a>
+  <a href="https://wa.me/8615204002312" target="_blank" style="color:var(--whatsapp)">💬 WhatsApp</a>
+</div>
+
+<div class="cat-hero">
+  <div class="cat-hero-bg"></div>
+  <div class="cat-hero-inner">
+    <a href="../index.html#catalog" class="cat-page-tag">All Collections</a>
+    <h1 class="cat-page-h1">Watches</h1>
+    <p class="cat-page-desc">From grand complications to iconic sport models — curated timepieces from the world's most prestigious watchmakers. Brands ranked by retail price, highest first.</p>
+  </div>
+</div>
+
+<section style="padding:40px 0 100px;">
+  <div style="max-width:1320px;margin:0 auto;padding:0 48px;">
+
+    <div class="tip-bar reveal">
+      <span style="font-size:1.1rem;flex-shrink:0">💡</span>
+      <p><strong>How to order:</strong> Click a brand → browse photos → screenshot your choice → send to us on <strong>WhatsApp</strong>. We provide a QC video before every shipment.</p>
+      <a href="https://wa.me/8615204002312?text=Hi%20Luxevia%2C%20I%27m%20interested%20in%20a%20watch" target="_blank" class="btn btn-gold" style="font-size:0.62rem;padding:10px 18px;flex-shrink:0;">WhatsApp Us</a>
+    </div>
+
+    <!-- TIER 1: ULTRA LUXURY -->
+    <div class="tier-label reveal">
+      <span class="tier-label-text">Ultra Luxury · Retail $20,000+</span>
+      <div class="tier-label-line"></div>
+    </div>
+    <div class="brand-grid">
+
+      <a href="https://spjy.x.yupoo.com/categories/4688465" target="_blank" class="brand-card brand-card--wide reveal">
+        <div class="brand-card-bg bg-patek"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#1 Ranked · The Holy Trinity</span>
+          <span class="brand-card-name">Patek Philippe</span>
+          <span class="brand-card-sub">Nautilus · Aquanaut · Calatrava · Grand Complications · Annual Calendar</span>
+          <span class="brand-card-price">Retail from $20,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+      <a href="https://spjy.x.yupoo.com/categories/4489777" target="_blank" class="brand-card brand-card--wide reveal">
+        <div class="brand-card-bg bg-ap"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#2 Ranked · The Holy Trinity</span>
+          <span class="brand-card-name">Audemars Piguet</span>
+          <span class="brand-card-sub">Royal Oak · Royal Oak Offshore · Code 11.59 · Royal Oak Chronograph</span>
+          <span class="brand-card-price">Retail from $20,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+      <a href="https://spjy.x.yupoo.com/search/album?uid=1&sort=&q=Richard+Mille" target="_blank" class="brand-card reveal">
+        <div class="brand-card-bg bg-rm"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#3 Ranked · Most Exclusive</span>
+          <span class="brand-card-name">Richard Mille</span>
+          <span class="brand-card-sub">RM 11 · RM 35 · RM 055 · RM 67 · RM 27</span>
+          <span class="brand-card-price">Retail from $80,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+      <a href="https://spjy.x.yupoo.com/categories/4538927" target="_blank" class="brand-card reveal">
+        <div class="brand-card-bg bg-vc"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#5 Ranked · Geneva Seal</span>
+          <span class="brand-card-name">Vacheron Constantin</span>
+          <span class="brand-card-sub">Overseas · Patrimony · Historiques · Traditionnelle</span>
+          <span class="brand-card-price">Retail from $10,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- TIER 2: LUXURY -->
+    <div class="tier-label reveal">
+      <span class="tier-label-text">Luxury · Retail $4,000 – $20,000</span>
+      <div class="tier-label-line"></div>
+    </div>
+    <div class="brand-grid">
+
+      <a href="https://spjy.x.yupoo.com/search/album?uid=1&sort=&q=%E5%8A%B3%E5%8A%9B%E5%A3%AB&page=1" target="_blank" class="brand-card brand-card--wide reveal">
+        <div class="brand-card-bg bg-rolex"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#4 Ranked · World's Most Iconic</span>
+          <span class="brand-card-name">Rolex</span>
+          <span class="brand-card-sub">Submariner · Daytona · GMT-Master II · Datejust · Day-Date · Explorer · Yacht-Master</span>
+          <span class="brand-card-price">Retail from $5,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+      <a href="https://spjy.x.yupoo.com/search/album?uid=1&sort=&q=%E7%A7%AF%E5%AE%B6" target="_blank" class="brand-card reveal">
+        <div class="brand-card-bg bg-jlc"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#6 Ranked</span>
+          <span class="brand-card-name">Jaeger-LeCoultre</span>
+          <span class="brand-card-sub">Reverso · Master Control · Polaris · Rendez-Vous</span>
+          <span class="brand-card-price">Retail from $5,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+      <a href="https://spjy.x.yupoo.com/search/album?uid=1&sort=&q=%E4%B8%87%E5%9B%BD" target="_blank" class="brand-card reveal">
+        <div class="brand-card-bg bg-iwc"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#7 Ranked</span>
+          <span class="brand-card-name">IWC Schaffhausen</span>
+          <span class="brand-card-sub">Pilot · Portugieser · Portofino · Aquatimer · Ingenieur</span>
+          <span class="brand-card-price">Retail from $4,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+      <a href="https://spjy.x.yupoo.com/categories/4527182" target="_blank" class="brand-card reveal">
+        <div class="brand-card-bg bg-panerai"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#8 Ranked · Italian Style</span>
+          <span class="brand-card-name">Panerai</span>
+          <span class="brand-card-sub">Luminor · Radiomir · Submersible · Luminor Due</span>
+          <span class="brand-card-price">Retail from $4,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+      <a href="https://spjy.x.yupoo.com/categories/4610994" target="_blank" class="brand-card reveal">
+        <div class="brand-card-bg bg-cartier"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#9 Ranked · Paris</span>
+          <span class="brand-card-name">Cartier</span>
+          <span class="brand-card-sub">Santos · Tank · Ballon Bleu · Panthère · Clé · Ronde</span>
+          <span class="brand-card-price">Retail from $3,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+      <a href="https://spjy.x.yupoo.com/categories/4857198" target="_blank" class="brand-card reveal">
+        <div class="brand-card-bg bg-breguet"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#10 Ranked · Since 1775</span>
+          <span class="brand-card-name">Breguet</span>
+          <span class="brand-card-sub">Classique · Marine · Tradition · Reine de Naples</span>
+          <span class="brand-card-price">Retail from $8,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- TIER 3: ACCESSIBLE LUXURY -->
+    <div class="tier-label reveal">
+      <span class="tier-label-text">Accessible Luxury · Retail $500 – $4,000</span>
+      <div class="tier-label-line"></div>
+    </div>
+    <div class="brand-grid">
+
+      <a href="https://spjy.x.yupoo.com/categories/4684944" target="_blank" class="brand-card brand-card--wide reveal">
+        <div class="brand-card-bg bg-omega"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#11 Ranked · Moon Watch</span>
+          <span class="brand-card-name">Omega</span>
+          <span class="brand-card-sub">Speedmaster · Seamaster · Constellation · De Ville · Aqua Terra</span>
+          <span class="brand-card-price">Retail from $3,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+      <a href="https://spjy.x.yupoo.com/categories/216095" target="_blank" class="brand-card reveal">
+        <div class="brand-card-bg bg-breitling"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#13 Ranked · Aviation</span>
+          <span class="brand-card-name">Breitling</span>
+          <span class="brand-card-sub">Navitimer · Superocean · Chronomat · Avenger</span>
+          <span class="brand-card-price">Retail from $3,000</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+      <a href="https://spjy.x.yupoo.com/categories/216089" target="_blank" class="brand-card reveal">
+        <div class="brand-card-bg bg-longines"></div><div class="brand-card-emoji">⌚</div>
+        <div class="brand-card-overlay"></div><div class="brand-card-sheen"></div><div class="brand-card-frame"></div><div class="brand-card-vline"></div>
+        <div class="brand-card-info">
+          <span class="brand-card-tag">#14 Ranked · Best Value</span>
+          <span class="brand-card-name">Longines</span>
+          <span class="brand-card-sub">Master Collection · HydroConquest · Spirit · Elegant</span>
+          <span class="brand-card-price">Retail from $500</span>
+          <span class="brand-card-cta">Browse Collection →</span>
+        </div>
+      </a>
+
+      <a href="https://wa.me/8615204002312?text=Hi%20Luxevia%2C%20I%27m%20looking%20for%20a%20specific%20watch" target="_blank" class="brand-card reveal" style="background:var(--off-black);border:1px solid var(--border);">
+        <div class="brand-card-frame"></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;z-index:2;">
+          <span style="font-size:2rem;margin-bottom:12px;opacity:0.35">+</span>
+          <span class="brand-card-name" style="display:block;margin-bottom:8px;font-size:0.95rem;">Other Brands</span>
+          <span class="brand-card-sub" style="display:block;margin-bottom:16px;font-size:0.62rem;">Hublot · Zenith · Tudor · TAG Heuer · Seiko · Grand Seiko · and more</span>
+          <span style="font-size:0.58rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);">Ask Us on WhatsApp →</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="reveal" style="text-align:center;padding:48px 40px;border:1px solid var(--border);background:linear-gradient(135deg,rgba(198,169,107,0.04),transparent);">
+      <p style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--cream);margin-bottom:12px;">Looking for a specific reference?</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--muted);margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;">Tell us the brand, model, dial colour and case size. We'll source it and send a QC video before shipment.</p>
+      <a href="https://wa.me/8615204002312?text=Hi%20Luxevia%2C%20I%27m%20looking%20for%20a%20specific%20watch" target="_blank" class="btn btn-gold">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.532 5.856L.057 23.882a.5.5 0 00.611.61l6.054-1.47A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.938a9.9 9.9 0 01-5.031-1.37l-.361-.214-3.741.908.937-3.639-.235-.374A9.895 9.895 0 012.062 12C2.062 6.533 6.533 2.062 12 2.062S21.938 6.533 21.938 12 17.467 21.938 12 21.938z"/></svg>
+        Enquire on WhatsApp
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<a href="https://wa.me/8615204002312" target="_blank" id="wa-float">
+  <span class="wa-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.532 5.856L.057 23.882a.5.5 0 00.611.61l6.054-1.47A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.938a9.9 9.9 0 01-5.031-1.37l-.361-.214-3.741.908.937-3.639-.235-.374A9.895 9.895 0 012.062 12C2.062 6.533 6.533 2.062 12 2.062S21.938 6.533 21.938 12 17.467 21.938 12 21.938z"/></svg></span>
+  <span class="wa-label">Chat with Us</span>
+</a>
+<script src="../js/main.js"></script>
+</body>
+</html>
